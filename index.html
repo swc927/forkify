@@ -290,13 +290,13 @@
   </div>
 
   <script type="module">
-    import spriteUrl from 'url:./src/img/icons.svg';
+    import icons from './src/js/views/icons.js';
 
     function hydrateInlineIcons() {
       document.querySelectorAll('use[data-icon]').forEach(el => {
         const name = el.getAttribute('data-icon');
         if (!name) return;
-        el.setAttribute('href', `${spriteUrl}#${name}`);
+        el.setAttribute('href', `${icons}#${name}`);
         el.removeAttribute('data-icon');
       });
     }
@@ -307,6 +307,8 @@
       hydrateInlineIcons();
     }
   </script>
+
+
 
 
 </body>
