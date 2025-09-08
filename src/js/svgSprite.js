@@ -1,18 +1,18 @@
-// src/js/svgSprite.js
-import sprite from 'bundle-text:../img/icons.svg';
+import spriteUrl from 'url:../img/icons.svg';
 
-// Inject the raw SVG sprite into the page once
+let injected = false;
+
 export function injectSpriteOnce() {
-  if (document.getElementById('svg-sprite')) return;
+  if (injected) return;
+  injected = true;
 
-  const wrap = document.createElement('div');
-  wrap.id = 'svg-sprite';
-  wrap.style.position = 'absolute';
-  wrap.style.width = '0';
-  wrap.style.height = '0';
-  wrap.style.overflow = 'hidden';
-
-  // Important: keep the sprite exactly as-is (contains <symbol> ids)
-  wrap.innerHTML = sprite;
-  document.body.prepend(wrap);
+  fetch(spriteUrl)
+    .then(res => res.text())
+    .then(svgText => {
+      const div = document.createElement('div');
+      div.style.display = 'none';
+      div.innerHTML = svgText;
+      div.querySelector('svg').id = 'svg-sprite';
+      document.body.prepend(div.firstElementChild);
+    });
 }
