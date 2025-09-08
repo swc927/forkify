@@ -1,2 +1,4 @@
-import url from 'url:../../img/icons.svg';
-export default url;
+//icons.js
+
+import icons from 'url:../../img/icons.svg';
+export default icons;

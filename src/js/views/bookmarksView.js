@@ -1,3 +1,5 @@
+//bookmarksView.js
+
 import View from './View.js';
 import previewView from './previewView.js';
 import icons from './icons.js';

@@ -1,10 +1,12 @@
+//View.js
+
 import icons from './icons.js';
 
 export default class View {
   _data;
 
   /**
-   * Redner the received object to the DOM
+   * Render the received object to the DOM
    * @param {Object | Object[]} data The data to be rendered (e.g. recipe)
    * @param {boolean} [render=true] If false, create markup string instead of rendering to the DOM
    * @returns {undefined | string} A markup string is returned if render=false

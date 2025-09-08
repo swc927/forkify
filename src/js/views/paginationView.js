@@ -1,3 +1,5 @@
+//paginationView.js
+
 import View from './View.js';
 import icons from './icons.js';
 
