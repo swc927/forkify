@@ -290,19 +290,24 @@
   </div>
 
   <script type="module">
-    // Parcel will turn this into the fingerprinted sprite URL during build
-    import icons from 'url:./src/img/icons.svg';
+    import spriteUrl from 'url:./src/img/icons.svg';
 
     function hydrateInlineIcons() {
       document.querySelectorAll('use[data-icon]').forEach(el => {
         const name = el.getAttribute('data-icon');
-        el.setAttribute('href', `${icons}#${name}`);
+        if (!name) return;
+        el.setAttribute('href', `${spriteUrl}#${name}`);
+        el.removeAttribute('data-icon');
       });
     }
 
-    // Run immediately
-    hydrateInlineIcons();
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', hydrateInlineIcons);
+    } else {
+      hydrateInlineIcons();
+    }
   </script>
+
 
 </body>
 
