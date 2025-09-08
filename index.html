@@ -289,53 +289,6 @@
     </form>
   </div>
 
-  <script type="module">
-    import {
-      injectSpriteOnce
-    } from './src/js/svgSprite.js';
-
-    function hydrate(root = document) {
-      root.querySelectorAll('use[data-icon]').forEach(el => {
-        const name = el.getAttribute('data-icon');
-        if (!name) return;
-        el.setAttribute('href', `#${name}`);
-        el.removeAttribute('data-icon');
-      });
-    }
-
-    function startObserver() {
-      const obs = new MutationObserver(mutations => {
-        for (const m of mutations) {
-          m.addedNodes.forEach(node => {
-            if (node.nodeType !== 1) return;
-            if (node.matches?.('use[data-icon]')) hydrate(node.parentNode || node);
-            else hydrate(node);
-          });
-        }
-      });
-      obs.observe(document.body, {
-        childList: true,
-        subtree: true
-      });
-    }
-
-    function boot() {
-      injectSpriteOnce();
-      hydrate();
-      startObserver();
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', boot);
-    } else {
-      boot();
-    }
-  </script>
-
-
-
-
-
 </body>
 
 </html>

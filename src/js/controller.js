@@ -19,7 +19,6 @@ function hydrate(root = document) {
   });
 }
 
-// Observe future DOM updates so dynamically inserted icons also work
 function startObserver() {
   const obs = new MutationObserver(muts => {
     for (const m of muts) {
@@ -33,13 +32,13 @@ function startObserver() {
   obs.observe(document.body, { childList: true, subtree: true });
 }
 
-// Boot as early as possible
 function bootIcons() {
   injectSpriteOnce();
   hydrate();
   startObserver();
 }
 
+// Boot as early as possible
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', bootIcons, { once: true });
 } else {
