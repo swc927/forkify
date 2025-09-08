@@ -290,13 +290,19 @@
   </div>
 
   <script type="module">
-    import icons from './src/js/views/icons.js';
+    import {
+      injectSpriteOnce
+    } from './src/js/svgSprite.js';
 
     function hydrateInlineIcons() {
+      // Make sure the sprite definitions exist first
+      injectSpriteOnce();
+
+      // Point each <use> at the inlined symbol id
       document.querySelectorAll('use[data-icon]').forEach(el => {
         const name = el.getAttribute('data-icon');
         if (!name) return;
-        el.setAttribute('href', `${icons}#${name}`);
+        el.setAttribute('href', `#${name}`);
         el.removeAttribute('data-icon');
       });
     }
