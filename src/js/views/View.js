@@ -1,7 +1,5 @@
 //View.js
 
-import icons from './icons.js';
-
 export default class View {
   _data;
 

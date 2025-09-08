@@ -1,7 +1,6 @@
 //previewView.js
 
 import View from './View.js';
-import icons from './icons.js';
 
 class PreviewView extends View {
   _parentElement = '';
