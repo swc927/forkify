@@ -1,30 +1,30 @@
 // src/js/svgSprite.js
-import sprite from 'bundle-text:../img/icons.svg'; // NOTE: one level up from /js to /img
+import spriteMarkup from 'bundle-text:../img/icons.svg';
 
 let injected = false;
 
 export function injectSpriteOnce() {
   if (injected) return;
-
-  // Parse the SVG string into a DOM node
-  const temp = document.createElement('div');
-  temp.innerHTML = sprite.trim();
-
-  const svg = temp.firstElementChild;
-  if (!svg || svg.tagName.toLowerCase() !== 'svg') {
-    console.error('SVG sprite did not parse as an <svg>');
-    return;
-  }
-
-  // Ensure an id and hidden style
-  svg.id = 'svg-sprite';
-  svg.setAttribute('aria-hidden', 'true');
-  svg.style.position = 'absolute';
-  svg.style.width = '0';
-  svg.style.height = '0';
-  svg.style.overflow = 'hidden';
-
-  // Prepend to body so <use href="#…"> can find it
-  document.body.prepend(svg);
   injected = true;
+
+  const div = document.createElement('div');
+  div.innerHTML = spriteMarkup.trim();
+
+  const sprite = div.querySelector('svg');
+  if (!sprite) return;
+
+  sprite.id = 'svg-sprite';
+  sprite.setAttribute('aria-hidden', 'true');
+  sprite.style.position = 'absolute';
+  sprite.style.width = 0;
+  sprite.style.height = 0;
+  sprite.style.overflow = 'hidden';
+
+  document.body.prepend(sprite);
+}
+
+export function setUseHref(el, fragment) {
+  el.setAttribute('href', fragment); // modern
+  // Safari/WebKit fallback
+  el.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', fragment);
 }

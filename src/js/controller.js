@@ -7,6 +7,45 @@ import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
 import addRecipeView from './views/addRecipeView.js';
 
+import { injectSpriteOnce, setUseHref } from './svgSprite.js';
+
+// Turn every <use data-icon="..."> into <use href="#...">
+function hydrate(root = document) {
+  root.querySelectorAll('use[data-icon]').forEach(el => {
+    const name = el.getAttribute('data-icon');
+    if (!name) return;
+    setUseHref(el, `#${name}`);
+    el.removeAttribute('data-icon');
+  });
+}
+
+// Observe future DOM updates so dynamically inserted icons also work
+function startObserver() {
+  const obs = new MutationObserver(muts => {
+    for (const m of muts) {
+      m.addedNodes.forEach(node => {
+        if (node.nodeType !== 1) return;
+        if (node.matches?.('use[data-icon]')) hydrate(node.parentNode || node);
+        else hydrate(node);
+      });
+    }
+  });
+  obs.observe(document.body, { childList: true, subtree: true });
+}
+
+// Boot as early as possible
+function bootIcons() {
+  injectSpriteOnce();
+  hydrate();
+  startObserver();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bootIcons, { once: true });
+} else {
+  bootIcons();
+}
+
 import '../sass/main.scss';
 
 import 'core-js/stable';
