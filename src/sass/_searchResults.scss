@@ -1,0 +1,94 @@
+.search-results {
+  padding: 3rem 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.results {
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+/* CHANGED merge title styles and support both class names */
+.results .preview__title,
+.results .preview__name {
+  font-size: 1.6rem;
+  line-height: 1.3;
+  color: #ff7a00; /* title orange */
+  white-space: normal; /* allow wrapping */
+  display: -webkit-box; /* two line clamp */
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+/* CHANGED single source of truth for author styles */
+.results .preview__publisher {
+  display: block; /* force next line */
+  grid-column: 1 / -1; /* full width in grid */
+  font-size: 1.2rem;
+  color: #777; /* author black */
+}
+
+/* Keep data stacked vertically */
+.results .preview__data {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 0.2rem;
+  overflow: visible;
+}
+
+/* CHANGED simplify link state overrides so colours never get overridden */
+.results .preview__link:link .preview__title,
+.results .preview__link:visited .preview__title,
+.results .preview__link:hover .preview__title,
+.results .preview__link:focus .preview__title,
+.results .preview__link:active .preview__title,
+.results .preview__link:link .preview__name,
+.results .preview__link:visited .preview__name,
+.results .preview__link:hover .preview__name,
+.results .preview__link:focus .preview__name,
+.results .preview__link:active .preview__name {
+  color: #ff7a00;
+}
+
+.results .preview__link:link .preview__publisher,
+.results .preview__link:visited .preview__publisher,
+.results .preview__link:hover .preview__publisher,
+.results .preview__link:focus .preview__publisher,
+.results .preview__link:active .preview__publisher {
+  color: #777;
+}
+
+/* Your pagination and copyright blocks look fine as Sass */
+.pagination {
+  margin-top: auto;
+  padding: 0 3.5rem;
+
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+
+  &__btn {
+    &--prev {
+      float: left;
+    }
+    &--next {
+      float: right;
+    }
+  }
+}
+
+.copyright {
+  color: $color-grey-dark-2;
+  font-size: 1.2rem;
+  padding: 0 3.5rem;
+  margin-top: 4rem;
+
+  .twitter-link:link,
+  .twitter-link:visited {
+    color: $color-grey-dark-2;
+  }
+}
